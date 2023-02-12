@@ -13,14 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('shipping_addresses', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->foreignId('user_id');
+            $table->string('recipient_name', 100);
             $table->string('no_hp', 14);
-            $table->rememberToken();
+            $table->text('address');
+            $table->string('province', 50);
+            $table->string('regency', 50);
+            $table->string('district', 50);
+            $table->string('village', 50);
+            $table->string('postal_code', 50);
             $table->timestamps();
         });
     }
@@ -32,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('shipping_addresses');
     }
 };

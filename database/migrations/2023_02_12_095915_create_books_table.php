@@ -13,14 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('no_hp', 14);
-            $table->rememberToken();
+            $table->string('isbn', 17);
+            $table->string('title');
+            $table->foreignId('author_id');
+            $table->foreignId('publisher_id');
+            $table->year('publish_year');
+            $table->unsignedSmallInteger('page_count');
+            $table->unsignedInteger('price');
+            $table->unsignedInteger('stock');
             $table->timestamps();
         });
     }
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('books');
     }
 };
